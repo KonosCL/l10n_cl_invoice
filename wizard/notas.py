@@ -80,12 +80,13 @@ class AccountInvoiceRefund(models.TransientModel):
                 type = inv.type
                 if inv.type in [ 'out_invoice']:
                     type = 'out_refund'
-                elif inv.type in [ 'out_refund']:
+                elif inv.type in [ 'out_refund']
                     type = 'out_invoice'
                 elif inv.type in ['in_invoice']:
                     type = 'in_refund'
                 elif inv.type in ['in_refund']:
                     type = 'in_invoice'
+                refund.type = type
                 created_inv.append(refund.id)
                 document_type = self.env['account.journal.sii_document_class'].search([
                     ('sii_document_class_id.sii_code','=', self.tipo_nota.sii_code),
