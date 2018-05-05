@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp import osv, models, fields, api, _
-from openerp.osv import fields as old_fields
-from openerp.exceptions import except_orm, UserError
-import openerp.addons.decimal_precision as dp
+from odoo import osv, models, fields, api, _
+from odoo.tools.translate import _
+from odoo.exceptions import except_orm, UserError
+import odoo.addons.decimal_precision as dp
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -414,7 +414,8 @@ class account_invoice(models.Model):
                     order='sequence asc',
                     limit=1,
                 ).id
-            self.journal_document_class_id = self._default_journal_document_class_id(default)
+            if default:
+                self.journal_document_class_id = self._default_journal_document_class_id(default)
 
     @api.onchange('sii_document_class_id', 'partner_id')
     def _check_vat(self):
@@ -480,8 +481,9 @@ a VAT."""))
     journal_document_class_id = fields.Many2one(
         'account.journal.sii_document_class',
         'Documents Type',
-        default=_default_journal_document_class_id,
-        domain=_domain_journal_document_class_id,
+        #default=_default_journal_document_class_id,
+        default=_get_available_journal_document_class,
+        #domain=_domain_journal_document_class_id,
         readonly=True,
         store=True,
         states={'draft': [('readonly', False)]})
@@ -583,7 +585,7 @@ a VAT."""))
             obj_inv.move_id.write(guardar)
         return True
 
-    def get_operation_type(self, cr, uid, invoice_type, context=None):
+    def get_operation_type(self, invoice_type):
         if invoice_type in ['in_invoice', 'in_refund']:
             operation_type = 'purchase'
         elif invoice_type in ['out_invoice', 'out_refund']:

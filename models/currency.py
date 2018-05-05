@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import fields, models, api
-from openerp.tools import float_round
+from odoo import fields, models, api
+from odoo.tools import float_round
 
 def float_round_custom(value, precision_digits=None, precision_rounding=None, rounding_method='HALF-UP'):
 	result = float_round(value, precision_digits, precision_rounding, rounding_method)

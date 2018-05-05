@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
         <record id="view_account_invoice_filter" model="ir.ui.view">
@@ -45,9 +45,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-              <button name="invoice_cancel" position="attributes">
+              <!--<button name="invoice_cancel" position="attributes">
                   <attribute name="invisible">0</attribute>
-              </button>
+              </button>--> 
 
               <field name="invoice_line_tax_ids" position="attributes">
                 <attribute name="required">True</attribute>    
@@ -73,9 +73,9 @@
                     <field name="vat_discriminated"/>
                 </field>
 
-                <field name="origin" position="replace">
+                <!-- <field name="origin" position="replace">
                     <field name="origin" attrs="{'readonly':[('state','not in',['draft'])]}" />
-                </field>
+                </field>--> 
 
                 <xpath expr="//page/field[@name='tax_line_ids']/tree/field[@name='account_id']" position="after">
                   <field name="retencion_account_id" />
@@ -155,9 +155,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
-              <button name="invoice_cancel" position="attributes">
+              <!--<button name="invoice_cancel" position="attributes">
                   <attribute name="invisible">0</attribute>
-              </button>
+              </button>--> 
               <field name="invoice_line_tax_ids" position="attributes">
                 <attribute name="required">True</attribute>    
               </field>
@@ -243,4 +243,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>
